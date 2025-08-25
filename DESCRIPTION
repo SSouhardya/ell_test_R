@@ -1,0 +1,21 @@
+Package: elltest
+Type: Package
+Title: ell-test based inference methods for the linear model
+Version: 0.1.0
+Authors@R: 
+ c(
+    person("Souhardya", "Sengupta", 
+           email = "ssengupta@g.harvard.edu", 
+           role = c("aut", "cre")),
+    person("Lucas", "Janson",
+           role = "ctb")
+ )
+Description: Implements the ell-test, ell-CI and its post-LASSO-selection-adjusted analogues for single coefficient inference in the linear model.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Imports:
+    glmnet,
+    CVXR
