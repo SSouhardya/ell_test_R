@@ -18,8 +18,8 @@ The function `l.test()` implements the $\ell$-test and `l.ci()` obtains the $\el
 Some examples:
 
 ```R
-source('l_testing.R')
-source('adjusted_l_testing.R')
+library(elltest)
+
 set.seed(1)
 
 n = 100
