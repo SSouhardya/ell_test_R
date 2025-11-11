@@ -24,7 +24,7 @@ g<-function(v){
 #' @param q Numeric. `u1` value.
 #' @param n Integer. The degrees of freedom; implies that `u` lies in an `n-1`-dimensional sphere.
 #' @param lower.tail. Logical. If `TRUE`, returns the lower tail probability; if `FALSE`, returns the upper tail probability. Default is `TRUE`.
-#' @param `known_sigma`. Logical. If `TRUE`, returns probabilities of a normal distribution with standard deviation `sigma.hat` (mentioned below) instead of the `u1`-distribution.
+#' @param known_sigma. Logical. If `TRUE`, returns probabilities of a normal distribution with standard deviation `sigma.hat` (mentioned below) instead of the `u1`-distribution.
 #'  Default is FALSE.
 #' @param sigma.hat. Numeric. If `known_sigma = TRUE`, this is the standard deviation of the normal distribution. Default is 1.
 #' @return Returns the percentile of `q` with respect to the `u1`-distribution or the normal distribution corresponding to whether

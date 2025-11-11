@@ -20,7 +20,7 @@ l.ci(
 \item{y}{Numeric vector. Response variable.}
 
 \item{X}{Matrix or data frame. Full column-rank \verb{n x p} design matrix; \code{nrow(X)} must match \code{length(y)}.
-The intercept is not included by default.}
+The intercept is included.}
 
 \item{ind}{Integer. Index of the coefficient to test.}
 
@@ -31,8 +31,9 @@ Either a positive value or one of:
 \itemize{
 \item \code{-1} to choose \code{lambda.min} with \code{cv.glmnet()} called on \verb{(y, X[,-ind])},
 \item \code{-2} to choose \code{lambda.1se} with \code{cv.glmnet()} called on \verb{(y, X[,-ind])}. Default \code{-1}.
-@param coverage Numeric. The coverage of the confidence interval. Default is 0.95.
 }}
+
+\item{coverage}{Numeric. The coverage of the confidence interval. Default is 0.95.}
 }
 \value{
 returns a two-dimensional vector specifying the upper and lower limits of the ell-test confidence interval (not adjusted for any LASSO selection).
@@ -58,6 +59,7 @@ beta[rand_ind] <- (1 - 2 * rbinom(s, 1, 0.5)) * A
 
 y <- as.numeric(X \%*\% beta + rnorm(n))
 
-gamma_range = seq(from = beta[j]-10, to = beta[j]+10, length.out = 100) #the grid of \gamma values to test on
+gamma_range = seq(from = beta[j]-10, to = beta[j]+10, length.out = 100) 
+#the grid of \gamma values to test on
 ci_l = l.ci(y,X,j, gamma_range = gamma_range, coverage = 0.95) #l-CI
 }

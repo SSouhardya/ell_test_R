@@ -40,7 +40,7 @@ l.cdf_glmnet(
 \item{glmnet_object}{list or \code{NULL}. If a list, then either of length-2 with object returned by \code{cv.glmnet()} on \verb{(y, X)} and \verb{(y, X[,-ind])} as first and second components,
 or length \code{d+1} list where the first component is the object returned by \code{cv.glmnet()} called on \verb{(y, X)} and the \code{i}th is when called on \verb{(y, X[,-i])}. Default \code{NULL}.}
 
-\item{glmnet_object_type}{integer. \code{1} for the 2-element list form, \code{2} for the \code{d+1}-element form. If \code{glmnet_object} is \code{NULL}, this is forced to \code{1}.}
+\item{glmnet_object_type}{integer. Set this to \code{1} if \code{glmnet_object} is in the 2-element list form, \code{1} for the \code{d+1}-element form. If \code{glmnet_object} is \code{NULL}, this is forced to \code{1}. Default \code{1}.}
 
 \item{adjusted}{logical. If \code{TRUE}, return the CDF conditional on LASSO selecting variable \code{ind}. Default \code{FALSE}.}
 

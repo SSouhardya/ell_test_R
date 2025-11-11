@@ -20,7 +20,7 @@ qhaar(
 
 \item{lower.tail.}{Logical. If \code{TRUE}, returns the lower tail probability; if \code{FALSE}, returns the upper tail probability. Default is \code{TRUE}.}
 
-\item{`known_sigma`.}{Logical. If \code{TRUE}, returns probabilities of a normal distribution with standard deviation \code{sigma.hat} (mentioned below) instead of the \code{u1}-distribution.
+\item{known_sigma.}{Logical. If \code{TRUE}, returns probabilities of a normal distribution with standard deviation \code{sigma.hat} (mentioned below) instead of the \code{u1}-distribution.
 Default is FALSE.}
 
 \item{sigma.hat.}{Numeric. If \code{known_sigma = TRUE}, this is the standard deviation of the normal distribution. Default is 1.}

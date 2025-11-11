@@ -21,7 +21,7 @@ l.test(
 \item{y}{Numeric vector. Response variable.}
 
 \item{X}{Matrix or data frame. Full column-rank \verb{n x p} design matrix; \code{nrow(X)} must match \code{length(y)}.
-The intercept is not included by default.}
+The intercept is included.}
 
 \item{ind}{Integer. Index of the coefficient to test.}
 
@@ -88,5 +88,7 @@ pval_l <- l.test(y - 2.3 * X[, j], X, j)
 
 # l-test for H0: beta_j = 0 with supplied lambda for CV
 pval_l <- l.test(y, X, j, lambda_cv = 0.01)
-pval_l_adjusted = l.test(y,X,j, adjusted = TRUE, lambda = 0.01) #adjusted l-test for H_j:\beta_j = 0 valid conditionally on LASSO selection using penalty 0.01, and the penalty for the test statistic chosen using cross-validation
+pval_l_adjusted = l.test(y,X,j, adjusted = TRUE, lambda = 0.01) 
+#adjusted l-test for H_j:\beta_j = 0 valid conditionally on LASSO selection using penalty 0.01, 
+#and the penalty for the test statistic chosen using cross-validation
 }

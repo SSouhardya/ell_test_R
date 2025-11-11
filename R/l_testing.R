@@ -12,7 +12,7 @@
 #' @param lambda_cv numeric. Lambda used for evaluating the ell-distribution, same coding as `lambda`. Default `-1`.
 #' @param glmnet_object list or `NULL`. If a list, then either of length-2 with object returned by `cv.glmnet()` on `(y, X)` and `(y, X[,-ind])` as first and second components,
 #'   or length `d+1` list where the first component is the object returned by `cv.glmnet()` called on `(y, X)` and the `i`th is when called on `(y, X[,-i])`. Default `NULL`.
-#' @param glmnet_object_type integer. `1` for the 2-element list form, `2` for the `d+1`-element form. If `glmnet_object` is `NULL`, this is forced to `1`.
+#' @param glmnet_object_type integer. Set this to `1` if `glmnet_object` is in the 2-element list form, `1` for the `d+1`-element form. If `glmnet_object` is `NULL`, this is forced to `1`. Default `1`.
 #' @param adjusted logical. If `TRUE`, return the CDF conditional on LASSO selecting variable `ind`. Default `FALSE`.
 #' @param return_both logical. If `TRUE`, return both unconditional and conditional CDFs. Default `FALSE`.
 #' @param return_dropprob logical. If `TRUE`, also return the conditional drop probability (LASSO estimate at `ind` equals 0). Default `FALSE`.
@@ -127,7 +127,7 @@ l.cdf_glmnet<-function(x,y,X,ind,lambda,lambda_cv, glmnet_object=NULL, glmnet_ob
 #'
 #' @param y Numeric vector. Response variable.
 #' @param X Matrix or data frame. Full column-rank `n x p` design matrix; `nrow(X)` must match `length(y)`. 
-#'   The intercept is not included by default.
+#'   The intercept is included.
 #' @param ind Integer. Index of the coefficient to test.
 #' @param lambda Numeric. Regularization parameter for the selection LASSO. 
 #'   Either a positive value or one of:
@@ -178,7 +178,9 @@ l.cdf_glmnet<-function(x,y,X,ind,lambda,lambda_cv, glmnet_object=NULL, glmnet_ob
 #'
 #' # l-test for H0: beta_j = 0 with supplied lambda for CV
 #' pval_l <- l.test(y, X, j, lambda_cv = 0.01)
-#' pval_l_adjusted = l.test(y,X,j, adjusted = TRUE, lambda = 0.01) #adjusted l-test for H_j:\beta_j = 0 valid conditionally on LASSO selection using penalty 0.01, and the penalty for the test statistic chosen using cross-validation
+#' pval_l_adjusted = l.test(y,X,j, adjusted = TRUE, lambda = 0.01) 
+#' #adjusted l-test for H_j:\beta_j = 0 valid conditionally on LASSO selection using penalty 0.01, 
+#' #and the penalty for the test statistic chosen using cross-validation
 #' @export
 #' 
 l.test<-function(y,X,ind, lambda=-1, lambda_cv=-1, glmnet_object=NULL, glmnet_object_type = 1, adjusted = FALSE, smoothed = TRUE, return_both = FALSE){
@@ -186,15 +188,15 @@ l.test<-function(y,X,ind, lambda=-1, lambda_cv=-1, glmnet_object=NULL, glmnet_ob
 		adjusted = FALSE
 	}
 	n = nrow(X)
-    p = ncol(X)
-    if(p<=2){
-    	stop('The dimension needs to be at least 3')
-    }
+  p = ncol(X)
+  if(p<=2){
+  	stop('The dimension needs to be at least 3')
+  }
     
-    y.std = std(y)
+  y.std = std(y)
 
 
-    Z = cbind(rep(1,n),X[,-ind])
+  Z = cbind(rep(1,n),X[,-ind])
 	proj = Z%*%solve(t(Z)%*%Z)%*%t(Z)
 	y.std.hat = proj %*%y.std
 	sigma.hat.std = sqrt(sum((y.std - y.std.hat)^2))
@@ -286,14 +288,14 @@ l.test<-function(y,X,ind, lambda=-1, lambda_cv=-1, glmnet_object=NULL, glmnet_ob
 #' 
 #' @param y Numeric vector. Response variable.
 #' @param X Matrix or data frame. Full column-rank `n x p` design matrix; `nrow(X)` must match `length(y)`. 
-#'   The intercept is not included by default.
+#'   The intercept is included.
 #' @param ind Integer. Index of the coefficient to test.
 #' @param gamma_range Vector. A grid of values on which the ell-test is to be inverted.
 #' @param lambda_cv Numeric. Regularization parameter for evaluating the ell-distribution. 
 #'   Either a positive value or one of:
 #'   * `-1` to choose `lambda.min` with `cv.glmnet()` called on `(y, X[,-ind])`,
 #'   * `-2` to choose `lambda.1se` with `cv.glmnet()` called on `(y, X[,-ind])`. Default `-1`.
-#'  @param coverage Numeric. The coverage of the confidence interval. Default is 0.95.
+#' @param coverage Numeric. The coverage of the confidence interval. Default is 0.95.
 #' @return returns a two-dimensional vector specifying the upper and lower limits of the ell-test confidence interval (not adjusted for any LASSO selection).
 #' @examples
 #' set.seed(1)
@@ -313,7 +315,8 @@ l.test<-function(y,X,ind, lambda=-1, lambda_cv=-1, glmnet_object=NULL, glmnet_ob
 #'
 #' y <- as.numeric(X %*% beta + rnorm(n))
 #' 
-#' gamma_range = seq(from = beta[j]-10, to = beta[j]+10, length.out = 100) #the grid of \gamma values to test on
+#' gamma_range = seq(from = beta[j]-10, to = beta[j]+10, length.out = 100) 
+#' #the grid of \gamma values to test on
 #'ci_l = l.ci(y,X,j, gamma_range = gamma_range, coverage = 0.95) #l-CI
 #' @export
 #' 

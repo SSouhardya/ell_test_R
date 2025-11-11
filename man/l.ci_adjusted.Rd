@@ -22,7 +22,7 @@ l.ci_adjusted(
 \item{y}{Numeric vector. Response variable.}
 
 \item{X}{Matrix or data frame. Full column-rank \verb{n x p} design matrix; \code{nrow(X)} must match \code{length(y)}.
-The intercept is not included by default.}
+The intercept is included.}
 
 \item{ind}{Integer. Index of the coefficient to test.}
 
@@ -35,7 +35,7 @@ Either a positive value or one of:
 \item \code{-2} to choose \code{lambda.1se} with \code{cv.glmnet()} called on \verb{(y, X[,-ind])}. Default \code{-1}.
 }}
 
-\item{coverage.}{the coverage of the confidence interval. Default is 0.95.}
+\item{coverage}{the coverage of the confidence interval. Default is 0.95.}
 }
 \value{
 returns a two-dimensional vector specifying the upper and lower limits of the ell-test confidence interval (adjusted for LASSO selection). If LASSO does not select variable \code{ind}, returns \code{NA}.
@@ -61,6 +61,9 @@ beta[rand_ind] <- (1 - 2 * rbinom(s, 1, 0.5)) * A
 
 y <- as.numeric(X \%*\% beta + rnorm(n))
 
-gamma_range = seq(from = beta[j]-10, to = beta[j]+10, length.out = 100) #the grid of \gamma values to test on
-ci_l_adjusted = l.ci_adjusted(y,X,j, gamma_range = gamma_range, coverage = 0.95, lambda = 0.01) #post-selection l-CI for \beta_j valid conditionally on LASSO with penalty 0.01 selecting the coefficient
+gamma_range = seq(from = beta[j]-10, to = beta[j]+10, length.out = 100) 
+#the grid of \gamma values to test on
+ci_l_adjusted = l.ci_adjusted(y,X,j, gamma_range = gamma_range, coverage = 0.95, lambda = 0.01) 
+#post-selection l-CI for \beta_j valid conditionally on LASSO with penalty 0.01 
+#selecting the coefficient
 }

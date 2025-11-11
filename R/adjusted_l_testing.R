@@ -77,14 +77,14 @@ l.cdf_adjusted<-function(x,y,X,ind,gamma, lambda_cv , lambda , solver = NA, tail
 #' 
 #' @param y Numeric vector. Response variable.
 #' @param X Matrix or data frame. Full column-rank `n x p` design matrix; `nrow(X)` must match `length(y)`. 
-#'   The intercept is not included by default.
+#'   The intercept is included.
 #' @param ind Integer. Index of the coefficient to test.
 #' @param lambda Numeric. Regularization parameter for the selection LASSO. 
 #' @param lambda_cv Numeric. Regularization parameter for evaluating the ell-distribution. 
 #'   Either a positive value or one of:
 #'   * `-1` to choose `lambda.min` with `cv.glmnet()` called on `(y, X[,-ind])`,
 #'   * `-2` to choose `lambda.1se` with `cv.glmnet()` called on `(y, X[,-ind])`. Default `-1`.
-#' @param coverage. the coverage of the confidence interval. Default is 0.95.
+#' @param coverage the coverage of the confidence interval. Default is 0.95.
 #' @return returns a two-dimensional vector specifying the upper and lower limits of the ell-test confidence interval (adjusted for LASSO selection). If LASSO does not select variable `ind`, returns `NA`.
 #' @examples
 #' set.seed(1)
@@ -104,8 +104,11 @@ l.cdf_adjusted<-function(x,y,X,ind,gamma, lambda_cv , lambda , solver = NA, tail
 #'
 #' y <- as.numeric(X %*% beta + rnorm(n))
 #' 
-#' gamma_range = seq(from = beta[j]-10, to = beta[j]+10, length.out = 100) #the grid of \gamma values to test on
-#' ci_l_adjusted = l.ci_adjusted(y,X,j, gamma_range = gamma_range, coverage = 0.95, lambda = 0.01) #post-selection l-CI for \beta_j valid conditionally on LASSO with penalty 0.01 selecting the coefficient
+#' gamma_range = seq(from = beta[j]-10, to = beta[j]+10, length.out = 100) 
+#' #the grid of \gamma values to test on
+#' ci_l_adjusted = l.ci_adjusted(y,X,j, gamma_range = gamma_range, coverage = 0.95, lambda = 0.01) 
+#' #post-selection l-CI for \beta_j valid conditionally on LASSO with penalty 0.01 
+#' #selecting the coefficient
 #' @export
 l.ci_adjusted<-function(y,X,ind, gamma_range, lambda,  lambda_cv=-1, coverage = 0.95, display = FALSE, smoothed = FALSE, outer_approx = FALSE, outer_grid.length = 10){
 	g.length = length(gamma_range)
