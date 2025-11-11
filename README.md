@@ -6,7 +6,7 @@ for sparse coefficient vectors without any knowledge about the true sign of the 
 
 ## Installation
 ```R
-library(dev_tools)
+library(devtools)
 devtools::install_github("ssouhardya/ell_test_R")
 ```
 
