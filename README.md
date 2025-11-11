@@ -10,7 +10,11 @@ library(dev_tools)
 devtools::install_github("ssouhardya/ell_test_R")
 ```
 
-## Some examples
+## Usage
+
+The function `l.test()` implements the $\ell$-test and `l.ci()` obtains the $\ell$-test based confdence interval.
+
+Some examples:
 
 ```R
 source('l_testing.R')
@@ -43,8 +47,6 @@ pval_l_adjusted = l.test(y,X,j, adjusted = TRUE, lambda = 0.01) #adjusted l-test
 gamma_range = seq(from = beta[j]-10, to = beta[j]+10, length.out = 100) #the grid of \gamma values to test on
 
 ci_l = l.ci(y,X,j, gamma_range = gamma_range, coverage = 0.95) #l-CI
-
-ci_l_adjusted = l.ci_adjusted(y,X,j, gamma_range = gamma_range, coverage = 0.95, lambda = 0.01) #post-selection l-CI for \beta_j valid conditionally on LASSO with penalty 0.01 selecting the coefficient
 
 ```
 
