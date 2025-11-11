@@ -12,6 +12,7 @@ devtools::install_github("ssouhardya/ell_test_R")
 
 ## Usage
 
+
 The function `l.test()` implements the $\ell$-test and `l.ci()` obtains the $\ell$-test based confdence interval.
 
 Some examples:
